@@ -1,0 +1,157 @@
+<template>
+    <lightning-card if:true={albview} title="Ricerca Camere">
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_1-of-3 slds-align_absolute-center">
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-align_absolute-center">
+                <lightning-combobox
+                    name=acc
+                    label=Albergo
+                    value={val} 
+                    options={acc_option}
+                    onchange={fooacc}></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-align_absolute-center">
+            </div>
+          
+            <div class="slds-col slds-size_1-of-2 slds-align_absolute-center">
+                
+                <lightning-combobox
+                 name=tip 
+                 label=Tipologia
+                 value={val} 
+                 options={tip_option}
+                 onchange={foo1}></lightning-combobox>
+                 
+            </div>
+          
+            <div class="slds-col slds-size_1-of-2 slds-align_absolute-center">
+              
+                
+                <lightning-combobox
+                 name=liv
+                 label=Livello
+                 value={val} 
+                 options={liv_option}
+                 onchange={foo2}></lightning-combobox>
+               
+            </div>
+            
+            <div class="slds-col slds-size_1-of-2 slds-align_absolute-center">
+                
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="number" name="Costo" label="Costo min" value={val}  onchange={foo3}></lightning-input>               
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="number" name="Costo" label="Costo max" value={val} onchange={foo4}></lightning-input>              
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="slds-col slds-size_1-of-2 slds-align_absolute-center">
+               
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="date" name="sdate" label="Start Date" value={val} onchange={foo5}></lightning-input>               
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input type="date" name="edate" label="End Date" value={val} onchange={foo6}></lightning-input>              
+                    </div>
+                </div>
+               
+            </div>
+            
+            <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">      
+                
+                <lightning-button variant="brand"  label="Search" onclick={getcamere}></lightning-button>
+             
+            </div>
+        
+            <div class="slds-col slds-size_1-of-2 ">
+                
+                <img if:true={viusalimg} src={image} width="450" height="450" style="vertical-align:top">
+                <img if:false={viusalimg} src="https://webresults46-dev-ed--c.visualforce.com/resource/1623483787000/logo" width="450" height="450" style="vertical-align:top" >
+            </div>
+
+        <!--    //stampa delle prenotazioni associate
+            <div class="slds-col slds-size_1-of-2">
+                <template if:true={visual}>
+                    <div class="slds-col slds-align_absolute-center">                        
+                         <ol class="slds-list_ordered slds-list_dotted">
+                            <template for:each={camere} for:item="cam">
+                                <li key={cam.Id}>
+                                    Camera:{cam.Name}, Tipologia:{cam.Tipologia__c}, Livello:{cam.Livello__c}
+                                    <ul class="slds-is-nested">
+                                        <template for:each={cam.Pratiche__r} for:item="pip">
+                                            Start Date:{pip.StartDate}, End Date:{pip.EndDate__c}   
+                                        </template>
+                                    </ul>
+                                </li>   
+                            </template>                           
+                        </ol>
+                    </div>
+                </template>  
+            </div>
+        -->
+
+        <div class="slds-col slds-size_1-of-2">
+            <!--
+            <template if:true={visual}>
+
+                <div class="slds-grid slds-wrap slds-align_absolute-center">
+                    <div class="slds-col slds-size_1-of-3 slds-border_right slds-border_left slds-border_bottom slds-border_top">
+                        <ol>
+                           <b>Name:</b> 
+                        </ol> 
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-border_right slds-border_left slds-border_bottom slds-border_top">
+                        <ol>
+                            <b>Tipologia:</b>
+                        </ol> 
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-border_right slds-border_left slds-border_bottom slds-border_top">
+                        <ol>
+                            <b>Livello:</b>
+                        </ol> 
+                    </div>
+                </div>
+
+                <div class="slds-grid slds-wrap slds-align_absolute-center">                                      
+                    <div class="slds-col slds-size_1-of-3 slds-border_right slds-border_left slds-border_bottom">                  
+                        <template for:each={camere} for:item="cam">
+                            <ol key={cam.Id}>
+                                {cam.Name}
+                            </ol>    
+                        </template>                       
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-border_right slds-border_left slds-border_bottom">
+                   
+                        <template for:each={camere} for:item="cam">
+                            <ol key={cam.Id}>
+                                {cam.Tipologia__c}
+                             </ol>    
+                        </template>                       
+                    </div>
+                    <div class="slds-col slds-size_1-of-3 slds-border_right slds-border_left slds-border_bottom">
+                      
+                        <template for:each={camere} for:item="cam">
+                            <ol key={cam.Id}>
+                                {cam.Livello__c}
+                            </ol> 
+                        </template>                       
+                    </div>
+                </div>
+            </template> -->
+            <template if:true={camere}>
+                <lightning-datatable data={camere} columns={columns} key-field="Id">
+                </lightning-datatable>
+            </template>
+        </div>
+
+        </div>
+    </lightning-card>       
+</template>
+
+<!--slds-border_right slds-border_left slds-border_bottom slds-border_top-->
